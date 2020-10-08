@@ -3,13 +3,15 @@
 #include <tuple>
 
  
-#include "Core" // Eigen Library
+#include "Core" // Eigen Library 
 #include "LU"   // Eigen Library
 
 using namespace std;
 using namespace Eigen;
 
 float measurements[3] = { 1, 2, 3 };
+
+int i;
 
 tuple<MatrixXf, MatrixXf> kalman_filter(MatrixXf x, MatrixXf P, MatrixXf u, MatrixXf F, MatrixXf H, MatrixXf R, MatrixXf I)
 {
@@ -30,7 +32,7 @@ tuple<MatrixXf, MatrixXf> kalman_filter(MatrixXf x, MatrixXf P, MatrixXf u, Matr
         S <<  H * P * H.transpose() +R;
         
         MatrixXf K(2,1);
-        K  << P * H.transpose()*S.inverse()
+        K  << P * H.transpose()*S.inverse();
         
         x << x + (K * y);
         P << (I - (K * H)) * P;
